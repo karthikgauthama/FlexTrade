@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:views="com.flextrade.views.*"
+			   >
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.flextrade.skin.TradingPanelSkin;
+			import com.flextrade.views.TradingPanel;
+				
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			[Bindable]
+			public var tradeCollection:ArrayCollection = new ArrayCollection([{"pair":"USD CHF", "buy":0.99143, "sell":0.99043},
+																				{"pair":"GBP USD", "buy":1.28495, "sell":1.2836},
+																				{"pair":"GBP CHF", "buy":1.27378, "sell":1.27147},
+																				{"pair":"EUR SEK", "buy":9.632, "sell":9.6055},
+																				{"pair":"USD JPY", "buy":110.467, "sell":110.417},
+																				{"pair":"EUR JPY", "buy":120.589, "sell":120.491}
+																				]);
+			
+			
+			protected function onCreationComplete(event:FlexEvent):void
+			{
+				for each(var t:Object in tradeCollection)
+				{
+					var tp:TradingPanel = new TradingPanel();
+					tp.data = t;
+					tp.setStyle("skinClass",TradingPanelSkin);
+					panelGrp.addElement(tp);
+				}
+			}
+			
+		]]>
+	</fx:Script>
+		<s:Group id="panelGrp" width="100%" height="100%" creationComplete="onCreationComplete(event)">
+		<s:layout>
+			<s:TileLayout/>
+		</s:layout>
+	</s:Group>
+	
+	
+</s:Application>
